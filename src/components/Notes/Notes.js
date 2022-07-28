@@ -21,15 +21,14 @@ const Notes = () => {
             console.log(error)
         })
     }, [])
-
   return (
     <Container>
         <div className='flex flex-col'>
             <h2 className='mb-5'>Notes:</h2>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4  '>
                 <CardAddNote click={()=> setModal(true)}/>
-                {data && data.map((item,id) => {
-                    return <NoteItem key={id} note={item.data} color={item.colorInput}/>
+                {data && data.map((item) => {
+                    return <NoteItem key={item.id} id={item.id} note={item.data} color={item.colorInput}/>
                 })}
                 
             </div>
