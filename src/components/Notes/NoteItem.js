@@ -20,9 +20,9 @@ const NoteItem = (props) => {
             break
     }
   return (
-    <div className={`${color} p-4 h-52 rounded-md shadow-md`} >
+    <div className={`${color} p-4 h-40 md:h-52 rounded-md shadow-md`} >
         <div className='h-full overflow-hidden'>
-            <p className='line-clamp-7 '>
+            <p className='line-clamp-5 md:line-clamp-7 '>
                 {props.note}
             </p>
         </div>

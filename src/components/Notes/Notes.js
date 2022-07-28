@@ -8,24 +8,25 @@ import AddNote from '../ModalContent/AddNote'
 const Notes = () => {
     const [data, setData] = useState()
     const [modal, setModal] = useState(false)
-    useEffect(() => {
-        const firestoreConfig = getFirestore(Firebase)
+    const firestoreConfig = getFirestore(Firebase)
+    useEffect(()=>{
         const noteRef = query(collection(firestoreConfig, "notes"), orderBy("createdAt", "desc"))
         onSnapshot(noteRef, (snap)=>{
             const res = []
             snap.forEach((item)=>{
-                res.push(item.data())
+                res.push({id: item.id , ...item.data()})
             })
             setData(res)
         },(error)=> {
             console.log(error)
         })
     }, [])
+
   return (
     <Container>
         <div className='flex flex-col'>
             <h2 className='mb-5'>Notes:</h2>
-            <div className='grid xl:grid-cols-5 gap-4 md:grid-cols-2 '>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4  '>
                 <CardAddNote click={()=> setModal(true)}/>
                 {data && data.map((item,id) => {
                     return <NoteItem key={id} note={item.data} color={item.colorInput}/>
