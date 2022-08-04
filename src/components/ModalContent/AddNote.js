@@ -1,22 +1,25 @@
 import React, {useState, useRef} from 'react'
 import { Firestore } from '../../firebase/config'
 import { addDoc, collection, serverTimestamp } from "firebase/firestore"
-
-const AddNote = (props) => {
+import { hideModal } from '../UI/ModalSlice'
+import { useDispatch } from 'react-redux/es/hooks/useDispatch'
+import { Auth } from '../../firebase/config'
+const AddNote = () => {
+    const dispatch = useDispatch()
     const [colorInput, setColorInput] = useState("red-color")
     const [loading, setLoading] = useState(false)
     const textarea = useRef()
-
+    const userInfo = Auth.currentUser
     const submitHandler = (e) => {
         e.preventDefault()
         setLoading(true)
         const data = textarea.current.value
-        addDoc(collection(Firestore, "notes"), {
+        addDoc(collection(Firestore, "users", userInfo.uid, "data"), {
             data: data,
             colorInput: colorInput,
             createdAt: serverTimestamp(),
         }).then(()=>{
-            props.click()
+            dispatch(hideModal())
             setColorInput("red-color")
             setLoading(false)
         }).catch((error)=>{
@@ -50,7 +53,7 @@ const AddNote = (props) => {
                         <label htmlFor='color-5' className='block w-8 h-8 rounded cursor-pointer bg-purple-300 peer-checked:ring-slate-600 peer-checked:ring-4 '></label>
                     </div>
                 </div>
-                <button className={`px-4 py-1 border border-blue-400 rounded-md ${loading ? "border-blue-100 cursor-not-allowed" : null} `} disabled={loading}>add</button>
+                <button className={`px-4 py-1 border border-blue-400 rounded-md ${loading ? "border-blue-100 cursor-wait" : null} `} disabled={loading}>add</button>
             </form>
         </div>
   )

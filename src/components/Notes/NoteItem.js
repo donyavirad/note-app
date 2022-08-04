@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import other from "../../images/other.svg"
-import { Firestore } from '../../firebase/config'
+import { Firestore, Auth } from '../../firebase/config'
 import { deleteDoc, doc } from 'firebase/firestore'
+import { showModal, editModalContent } from '../UI/ModalSlice'
+import { setEditId } from './NotesSlices'
+import { useDispatch } from 'react-redux/es/hooks/useDispatch'
 const NoteItem = (props) => {
+    const dispatch = useDispatch()
     const [options, setOptions] = useState(false)
-    
     let color = ''
     switch(props.color){
         case "red-color":
@@ -24,7 +27,7 @@ const NoteItem = (props) => {
             break
     }
     const deleteHandler = () =>{
-        deleteDoc(doc(Firestore,"notes", props.id)).then(()=>{
+        deleteDoc(doc(Firestore, "users" ,Auth.currentUser.uid, "data", props.id)).then(()=>{
             console.log("deleted sucessful")
         }).catch((error)=> console.log(error))
     }
@@ -37,15 +40,15 @@ const NoteItem = (props) => {
             <div onClick={() => setOptions(false)} className='fixed w-full h-full right-0 top-0 z-10'></div>
         : null }
 
-            <div className={`absolute right-0 top-full bg-slate-100 bg-opacity-50 backdrop-blur-md rounded-md transition  origin-top z-20 overflow-hidden ${options ? "scale-100" : "scale-y-0"}`}>
-                <ul className='py-1'>
+            <div className={`absolute right-0 top-full bg-slate-100 bg-opacity-50 backdrop-blur-md rounded-md transition  origin-top z-20 ${options ? "scale-100" : "scale-y-0"}`}>
+                <ul className='py-2 ring-1 ring-slate-300 ring-opacity-50 rounded-md '>
                     <li onClick={() => {
-                        props.click()
+                        dispatch(showModal())
                         setOptions(false)
-                        props.edit(props.id)
-                        props.setModalContent("edit-note-content")
-                    }} className='px-3 py-2 cursor-pointer'>Edit</li>
-                    <li onClick={deleteHandler} className='px-3 py-2 cursor-pointer'>Delete</li>
+                        dispatch(setEditId(props.id))
+                        dispatch(editModalContent())
+                    }} className='px-2 py-1 transition hover:bg-white hover:bg-opacity-70 cursor-pointer'>Edit</li>
+                    <li onClick={deleteHandler} className='px-2 py-1 transition hover:bg-white hover:bg-opacity-70 cursor-pointer'>Delete</li>
                 </ul>
             </div>
         </div>
