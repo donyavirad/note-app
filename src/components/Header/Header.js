@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <div className='shadow-lg'>
         <Container>
-            <div className='flex justify-between items-center py-4'>
+            <div className='flex justify-between items-center py-2 md:py-4 '>
                 <Logo/>
                 {showProfile ? <Profile/> : null}
             </div>

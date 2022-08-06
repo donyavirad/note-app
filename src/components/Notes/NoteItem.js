@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import other from "../../images/other.svg"
 import { Firestore, Auth } from '../../firebase/config'
 import { deleteDoc, doc } from 'firebase/firestore'
-import { showModal, editModalContent } from '../UI/ModalSlice'
-import { setEditId } from './NotesSlices'
-import { useDispatch } from 'react-redux/es/hooks/useDispatch'
+import { useNote } from '../../context/NoteContext'
+import { useModal } from '../../context/modalContext'
 const NoteItem = (props) => {
-    const dispatch = useDispatch()
+    const {showModal} = useModal()
+    const {setId} = useNote()
     const [options, setOptions] = useState(false)
     let color = ''
     switch(props.color){
@@ -43,10 +43,9 @@ const NoteItem = (props) => {
             <div className={`absolute right-0 top-full bg-slate-100 bg-opacity-50 backdrop-blur-md rounded-md transition  origin-top z-20 ${options ? "scale-100" : "scale-y-0"}`}>
                 <ul className='py-2 ring-1 ring-slate-300 ring-opacity-50 rounded-md '>
                     <li onClick={() => {
-                        dispatch(showModal())
+                        showModal("edit-note-content")
                         setOptions(false)
-                        dispatch(setEditId(props.id))
-                        dispatch(editModalContent())
+                        setId(props.id)
                     }} className='px-2 py-1 transition hover:bg-white hover:bg-opacity-70 cursor-pointer'>Edit</li>
                     <li onClick={deleteHandler} className='px-2 py-1 transition hover:bg-white hover:bg-opacity-70 cursor-pointer'>Delete</li>
                 </ul>

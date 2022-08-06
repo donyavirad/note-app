@@ -1,14 +1,14 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { Firestore } from '../../firebase/config'
 import { getDoc, doc, updateDoc } from 'firebase/firestore'
-import { hideModal } from '../UI/ModalSlice'
-import { useDispatch } from 'react-redux/es/hooks/useDispatch'
-import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { Auth } from '../../firebase/config'
 import { onAuthStateChanged } from 'firebase/auth'
+import { useNote } from '../../context/NoteContext'
+import { useModal } from '../../context/modalContext'
 const EditNote = () => {
-    const dispatch = useDispatch()
-    const editId = useSelector((state) => state.notes.editId)
+    const { noteId } = useNote()
+    const { hideModal } = useModal()
+    const editId = noteId
     const [textarea, setTextarea] = useState("")
     const [colorInput, setColorInput] = useState("red-color")
     const [loading, setLoading] = useState(false)
@@ -38,7 +38,7 @@ const EditNote = () => {
                 data: data
             }).then(()=> {
                 console.log("edited")
-                dispatch(hideModal())
+                hideModal()
             })
         })
     }

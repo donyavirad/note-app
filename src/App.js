@@ -1,8 +1,10 @@
 import Main from "./components/Main/Main";
-
+import { ModalProvider } from "./context/modalContext";
 const App = () => {
   return (
-    <Main/>
+    <ModalProvider>
+        <Main/>
+    </ModalProvider>
   )
 }
 

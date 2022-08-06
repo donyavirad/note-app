@@ -1,11 +1,10 @@
 import React, {useState, useRef} from 'react'
 import { Firestore } from '../../firebase/config'
 import { addDoc, collection, serverTimestamp } from "firebase/firestore"
-import { hideModal } from '../UI/ModalSlice'
-import { useDispatch } from 'react-redux/es/hooks/useDispatch'
 import { Auth } from '../../firebase/config'
+import { useModal } from '../../context/modalContext'
 const AddNote = () => {
-    const dispatch = useDispatch()
+    const { hideModal } = useModal()
     const [colorInput, setColorInput] = useState("red-color")
     const [loading, setLoading] = useState(false)
     const textarea = useRef()
@@ -19,7 +18,7 @@ const AddNote = () => {
             colorInput: colorInput,
             createdAt: serverTimestamp(),
         }).then(()=>{
-            dispatch(hideModal())
+            hideModal()
             setColorInput("red-color")
             setLoading(false)
         }).catch((error)=>{
