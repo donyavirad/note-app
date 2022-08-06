@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 import formImage from "../images/image-form.jpg"
-import Logo from "../images/logo.png"
 import {FaUserAlt, FaLock, FaEnvelope} from "react-icons/fa"
 import Container from '../hoc/Container'
 import { Link, useNavigate } from "react-router-dom"
@@ -8,7 +7,6 @@ import { Auth, Firestore } from '../firebase/config'
 import { setDoc, doc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import Title from '../components/UI/Title'
-import Header from '../components/Header/Header'
 const Signup = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -47,8 +45,6 @@ const Signup = () => {
         
     }
   return (
-    <React.Fragment>
-    <Header/>
     <Container>
         <div className=' flex flex-col justify-center items-center mt-4'>
             <div className=' flex justify-center items-center w-full'>
@@ -90,7 +86,6 @@ const Signup = () => {
             </div>
         </div>
     </Container>
-    </React.Fragment>
   )
 }
 

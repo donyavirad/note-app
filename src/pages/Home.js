@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../components/Header/Header'
+import Navbar from '../components/Header/Navbar'
 import Notes from '../components/Notes/Notes'
 import { Auth } from '../firebase/config'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -30,7 +30,7 @@ const Home = () => {
                 </div>
             ) : 
             <div className={modal ? "fixed inset-0 overflow-hidden" : null}>
-                <Header/>
+                <Navbar/>
                 <Notes/>
                 <Modal/>
             </div>}

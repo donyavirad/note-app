@@ -19,7 +19,7 @@ const Modal = () => {
     if(modal){
         res = (
             <div className='fixed inset-0 w-full h-full flex justify-center items-center z-30 overflow-y-hidden'>
-                <div onClick={()=> hideModal()} className='fixed w-full h-full left-0 top-0 backdrop-blur bg-gray-300 bg-opacity-60 ' aria-hidden={true}></div>
+                <div onClick={()=> hideModal()} className='fixed w-full h-full left-0 top-0 backdrop-blur bg-black/20' aria-hidden={true}></div>
                 <div className='relative z-50 rounded-sm'>
                     {contentModal}
                 </div>

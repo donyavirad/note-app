@@ -4,7 +4,7 @@ import Profile from './Profile'
 import Container  from '../../hoc/Container'
 import { Auth } from '../../firebase/config'
 import { onAuthStateChanged } from 'firebase/auth'
-const Header = () => {
+const Navbar = () => {
     const [showProfile, setProfile] =useState(false)
     useEffect(()=>{
         onAuthStateChanged(Auth, (user) => {
@@ -17,7 +17,7 @@ const Header = () => {
         
     }, [])
   return (
-    <div className='shadow-lg'>
+    <div className='border-b-2 border-solid border-gray-300'>
         <Container>
             <div className='flex justify-between items-center py-2 md:py-4 '>
                 <Logo/>
@@ -28,4 +28,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Navbar

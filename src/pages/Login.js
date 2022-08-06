@@ -1,13 +1,11 @@
 import React, { useRef, useState } from 'react'
 import formImage from "../images/image-form.jpg"
-import Logo from "../images/logo.png"
 import {FaEnvelope, FaLock} from "react-icons/fa"
 import Container from '../hoc/Container'
 import { Link } from "react-router-dom"
 import { Auth } from '../firebase/config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import Header from '../components/Header/Header'
 import Title from '../components/UI/Title'
 const Login = () => {
     const [error, setError] = useState(null)
@@ -27,8 +25,6 @@ const Login = () => {
         })
     }
   return (
-    <React.Fragment>
-    <Header/>
     <Container>
         <div className=' flex flex-col justify-center items-center mt-4'>
             <div className=' flex justify-center items-center  w-full '>
@@ -66,7 +62,6 @@ const Login = () => {
             </div>
         </div>
     </Container>
-    </React.Fragment>
   )
 }
 

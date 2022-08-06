@@ -1,13 +1,10 @@
 import React from 'react'
-import Header from '../components/Header/Header'
 import Container from '../hoc/Container'
 import Title from '../components/UI/Title'
 import image404 from "../images/404.png"
 import { Link } from 'react-router-dom'
 const PageNotFound = () => {
   return (
-    <React.Fragment>
-    <Header/>
     <Container>
         <div className=' flex flex-col justify-center items-center mt-4'>
             <div className=' flex justify-center items-center  w-full '>
@@ -25,7 +22,6 @@ const PageNotFound = () => {
             </div>
         </div>
     </Container>
-    </React.Fragment>
   )
 }
 
