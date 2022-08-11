@@ -1,30 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import profile from "../../images/profile.png"
+import React, { useState } from 'react'
 import { Auth } from '../../firebase/config'
 import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { FaRegUserCircle } from "react-icons/fa";
 const Profile = () => {
     const [showMenu, setShowMenu] = useState(false)
-    const [isNavigate, setNavigate] = useState(false)
     const navigate = useNavigate()
-    useEffect(()=> {
-        if(isNavigate) {
-            navigate("/login")
-        }
-        return ()=> {
-            setNavigate(false)
-        }
-    }, [isNavigate])
 
     const LogoutHandler = () => {
         signOut(Auth).then(()=>{
-            setNavigate(true)
+            navigate("/login")
         })
     }
   return (
     <div className='relative'>
-        <FaRegUserCircle onClick={() => setShowMenu(true)} className='w-12 h-12 text-gray-400 cursor-pointer'/>
+        <FaRegUserCircle onClick={() => setShowMenu(true)} className='w-8 h-8 text-gray-400 cursor-pointer'/>
         {showMenu ?
             <div onClick={() => setShowMenu(false)} className='fixed w-full h-full right-0 top-0 z-10'></div>
         : null }

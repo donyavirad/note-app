@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Header/Navbar'
-import Notes from '../components/Notes/Notes'
 import { Auth } from '../firebase/config'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { useModal } from '../context/modalContext'
 import Modal from '../components/UI/Modal'
 import { NoteProvider } from '../context/NoteContext'
+import NotesControl from '../components/Notes/NotesControl'
 
 const Home = () => {
-    const { modal, modalContent } = useModal()
+    const { modal} = useModal()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     useEffect(()=> {
@@ -31,7 +31,7 @@ const Home = () => {
             ) : 
             <div className={modal ? "fixed inset-0 overflow-hidden" : null}>
                 <Navbar/>
-                <Notes/>
+                <NotesControl/>
                 <Modal/>
             </div>}
         </NoteProvider> 

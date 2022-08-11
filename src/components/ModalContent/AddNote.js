@@ -22,14 +22,16 @@ const AddNote = () => {
             setColorInput("red-color")
             setLoading(false)
         }).catch((error)=>{
-            console.log(error)
+            console.log(error.code)
+            hideModal()
+            setLoading(false)
         })
     }
   return (
-        <div className='flex flex-col justify-between  h-96 w-80 bg-white p-5 rounded-md'>
+        <div className='flex flex-col justify-between w-full  h-96 sm:w-80 bg-white p-5 rounded-md'>
             <h3 className='mb-4'>Add your NOTE!</h3>
             <form onSubmit={submitHandler} className='flex flex-col justify-between flex-grow'>
-                <textarea ref={textarea} autoFocus className="border-2 border-blue-400 mb-2 rounded-md flex-grow focus:outline-none" required></textarea>
+                <textarea ref={textarea} autoFocus className="resize-none border-2 border-blue-400 mb-2 rounded-md flex-grow focus:outline-none"  placeholder='Write your note...' required></textarea>
                 <div className='flex justify-evenly mb-2'>
                     <div className='w-8 h-8'>
                         <input className='peer hidden' onChange={(e) => setColorInput(e.target.value)} type={"radio"} name="color-input" value="red-color" id='color-1' defaultChecked/>
@@ -52,7 +54,7 @@ const AddNote = () => {
                         <label htmlFor='color-5' className='block w-8 h-8 rounded cursor-pointer bg-purple-300 peer-checked:ring-slate-600 peer-checked:ring-4 '></label>
                     </div>
                 </div>
-                <button className={`px-4 py-1 border border-blue-400 rounded-md ${loading ? "border-blue-100 cursor-wait" : null} `} disabled={loading}>add</button>
+                <button className={`w-full px-4 py-1 border border-blue-400 rounded-md transition duration-300  hover:border-transparent hover:bg-blue-600 hover:text-white ${loading ? "disabled:bg-blue-300 disabled:text-white cursor-not-allowed" : "cursor-pointer"} `} disabled={loading}>add</button>
             </form>
         </div>
   )

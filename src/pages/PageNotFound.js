@@ -1,14 +1,14 @@
 import React from 'react'
 import Container from '../hoc/Container'
 import Title from '../components/UI/Title'
-import image404 from "../images/404.png"
+import image404 from "../images/404.svg"
 import { Link } from 'react-router-dom'
 const PageNotFound = () => {
   return (
     <Container>
-        <div className=' flex flex-col justify-center items-center mt-4'>
-            <div className=' flex justify-center items-center  w-full '>
-                <div className='hidden md:block w-1/2  px-6 py-8 '>
+        <div className=' flex justify-center items-center h-screen'>
+            <div className=' flex flex-col md:flex-row justify-center items-center  w-full '>
+                <div className=' w-full md:w-1/2  px-6 py-8 '>
                     <img src={image404} className="w-full object-cover"/>
                 </div>
                 <div className='flex flex-col justify-center items-center w-full md:w-1/2  px-6 py-8 '>

@@ -1,18 +1,16 @@
 import React, { useRef, useState } from 'react'
-import formImage from "../images/image-form.jpg"
+import forgotImage from "../images/forgot-password.svg"
 import {FaEnvelope} from "react-icons/fa"
 import Container from '../hoc/Container'
 import { Link } from "react-router-dom"
 import { Auth } from '../firebase/config'
 import { sendPasswordResetEmail } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
 import Title from '../components/UI/Title'
 const ForgotPassword = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [sucessMessage , setSucessMessage]= useState(null)
     const emailRef = useRef()
-    const navigate = useNavigate()
     const resetPasswordHandler = (e) =>{
         e.preventDefault()
         setLoading(true)
@@ -23,16 +21,14 @@ const ForgotPassword = () => {
             setSucessMessage(true)
         }).catch(error => {
             setLoading(false)
-            console.log(error.code)
             setError(error.code)
         })
     }
   return (
     <Container>
-        <div className=' flex flex-col justify-center items-center mt-4'>
-            <div className=' flex justify-center items-center  w-full '>
+            <div className=' flex justify-center items-center  w-full h-screen'>
                 <div className='hidden md:block w-1/2  px-6 py-8 '>
-                    <img src={formImage} className="w-full object-cover"/>
+                    <img src={forgotImage} className="w-full object-cover"/>
                 </div>
                 <div className='flex flex-col justify-center items-center w-full md:w-1/2  px-6 py-8 '>
                     <Title className="mb-5">
@@ -43,7 +39,7 @@ const ForgotPassword = () => {
                             <FaEnvelope className='text-gray-400'/>
                             <input ref={emailRef} type={"email"} className='flex-grow bg-transparent text-gray-400 focus:outline-none placeholder:text-gray-300'  placeholder='Email' id='user-name' required/>
                         </div>
-                        <button type={"submit"} className={`bg-emerald-300 p-2 rounded-full text-white text-lg ${loading ? "bg-emerald-200 cursor-wait" : null}`} disabled={loading}>
+                        <button type={"submit"} className={` p-2 rounded-full text-white text-lg ${loading ? "bg-purple-300 cursor-not-allowed" : "bg-purple-600"}`} disabled={loading}>
                             send
                         </button>
                     </form>
@@ -61,7 +57,6 @@ const ForgotPassword = () => {
                     <Link to={"/login"} className='text-blue-400 mt-3'>Cansel</Link>
                 </div>
             </div>
-        </div>
     </Container>
   )
 }
