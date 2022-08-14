@@ -27,12 +27,12 @@ const NoteItem = (props) => {
   return (
     <div className={` group p-4 h-40 md:h-52 ${color} rounded-md shadow-md`} >
         <div className='relative flex flex-col h-full'>
-            <div className='scale-0 absolute bottom-0 right-0 bg-slate-600 p-2 rounded-full cursor-pointer transition group-hover:scale-100'
+            <div className="scale-0 group-edit absolute bottom-0 right-0 bg-slate-600 p-2 rounded-full cursor-pointer transition group-hover:scale-100"
                 onClick={() => {
                     showModal("edit-note-content")
                     setId(props.id)
                 }}>
-                <FaPen className='text-white'/>
+                <FaPen className="text-white transition group-edit-hover:text-orange-300"/>
             </div>
             <div className='h-full overflow-hidden'>
                 <p className='line-clamp-5 md:line-clamp-6'>

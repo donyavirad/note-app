@@ -3,13 +3,14 @@ import Container from '../../hoc/Container'
 import Title from '../UI/Title'
 import Notes from './Notes'
 import AddNote from './AddNote'
+import { notesData } from '../../publicData'
 const NotesControl = () => {
   return (
     <Container>
         <div className='flex flex-col'>
             <div className='flex justify-between items-center'>
                 <Title className="py-8">
-                    Notes
+                    {notesData.noteControls.title}
                 </Title>
                 <AddNote/>
             </div>

@@ -12,5 +12,8 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/line-clamp"),
+    require("tailwindcss-scoped-groups")({
+        groups: ["edit"]
+    }),
   ],
 }

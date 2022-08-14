@@ -3,6 +3,7 @@ import { Auth } from '../../firebase/config'
 import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { FaRegUserCircle } from "react-icons/fa";
+import { headerData } from '../../publicData';
 const Profile = () => {
     const [showMenu, setShowMenu] = useState(false)
     const navigate = useNavigate()
@@ -30,9 +31,11 @@ const Profile = () => {
                     </span>
                 </li>
                 <li className=' px-2 py-1 cursor-pointer transition hover:bg-white hover:bg-opacity-70 '>
-                    Edit Profile
+                    {headerData.profile.profileOptions.editProfile.text}
                 </li>
-                <li onClick={LogoutHandler} className={"px-2 py-1 transition hover:bg-white hover:bg-opacity-70  cursor-pointer"}>Log out</li>
+                <li onClick={LogoutHandler} className={"px-2 py-1 transition hover:bg-white hover:bg-opacity-70  cursor-pointer"}>
+                    {headerData.profile.profileOptions.logOut.text}
+                </li>
             </ul>
         </div>
     </div>

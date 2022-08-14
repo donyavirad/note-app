@@ -1,12 +1,11 @@
 import React from 'react'
-import logo from "../../images/logo.svg"
-import smalLogo from "../../images/small-logo.svg"
 import { Link } from 'react-router-dom'
+import { headerData } from '../../publicData'
 const Logo = () => {
   return (
         <Link to={"/"}>
-            <img className='h-10 hidden md:block' src={logo}/>
-            <img className='h-10 md:hidden' src={smalLogo}/>
+            <img className='h-10 hidden md:block' src={headerData.logo.largeLogo.url}/>
+            <img className='h-10 md:hidden' src={headerData.logo.smallLogo.url}/>
         </Link>
   )
 }
