@@ -49,15 +49,24 @@ export const addNoteForm = {
     titleForm: {
         text: "Add your note!"
     },
-    textNote: {
-            elementType: "textarea",
-            elementConfig:{
-                type: "text",
-                placeholder: "Write your note...",
-                required: true,
-                autoFocus: true,
-            },
+    titleNote: {
+        elementType: "input",
+        elementConfig:{
+            type: "text",
+            placeholder: "Title...",
+            required: true,
+            autoFocus: true,
         },
+    },
+    textNote: {
+        elementType: "textarea",
+        elementConfig:{
+            type: "text",
+            placeholder: "Write your note...",
+            required: true,
+            autoFocus: false,
+        },
+    },
     colorNote:[
         {
             elementType: "input",
@@ -117,6 +126,15 @@ export const addNoteForm = {
 export const editNoteForm = {
     titleForm: {
         text: "Edit note"
+    },
+    titleNote: {
+        elementType: "input",
+        elementConfig:{
+            type: "text",
+            placeholder: "Title...",
+            required: true,
+            autoFocus: true,
+        },
     },
     textNote: {
             elementType: "textarea",

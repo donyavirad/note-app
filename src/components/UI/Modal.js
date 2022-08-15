@@ -4,7 +4,6 @@ import AddNote from '../ModalContent/AddNote'
 import EditNote from '../ModalContent/EditNote'
 const Modal = () => {
     const { modal, hideModal } = useModal()
-    let res = <div></div>
     let contentModal = null
 
     switch(modal) {
@@ -15,19 +14,15 @@ const Modal = () => {
             contentModal = <EditNote />
             break
     }
-    
-    if(modal){
-        res = (
-            <div className='fixed inset-0 w-full h-full flex justify-center items-center z-30'>
-                <div onClick={()=> hideModal()} className='fixed w-full h-full left-0 top-0 backdrop-blur bg-black/20'></div>
-                <div className='relative z-50 w-full px-4 sm:w-fit'>
-                    {contentModal}
-                </div>
-            </div>
-        )
-    }
 
-  return res
+    return (
+        <div className={`${modal ? "visible" : "invisible"} fixed inset-0 w-full h-full flex justify-center items-center z-30`}>
+            <div onClick={()=> hideModal()} className={`fixed w-full h-full left-0 top-0 ${modal ? "animate-showModal": "animate-hideModal"} `}></div>
+            <div className='relative z-50 w-full px-4 sm:w-fit'>
+                {contentModal}
+            </div>
+        </div>
+    )
 }
 
 export default Modal

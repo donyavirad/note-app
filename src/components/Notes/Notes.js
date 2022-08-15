@@ -11,7 +11,7 @@ const Notes = () => {
     const [refresh, setRefresh] = useState(false)
     
     useEffect(()=>{
-        const noteRef = query(collection(Firestore, "users", Auth.currentUser.uid, "data"), orderBy("createdAt", "desc"))
+        const noteRef = query(collection(Firestore, "users", Auth.currentUser.uid, "notes"), orderBy("createdAt", "desc"))
         setLoading(true)
         setError(false)
         setRefresh(false)
@@ -40,7 +40,14 @@ const Notes = () => {
     const showData = () => {
         let showdata = []
         data.map((item) => {
-            showdata.push( <NoteItem key={item.id} id={item.id} note={item.data} color={item.colorInput}/>)
+            showdata.push( <NoteItem 
+                key={item.id} 
+                id={item.id} 
+                title={item.title} 
+                text={item.text} 
+                color={item.colorInput}
+                date={item.updatedAt}
+            />)
         })
         const res = showdata.map((item) => {
             return item

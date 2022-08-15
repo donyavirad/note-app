@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { getDoc, doc, updateDoc, deleteDoc,serverTimestamp } from 'firebase/firestore'
 import { Auth, Firestore } from '../../firebase/config'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useNote } from '../../context/NoteContext'
@@ -9,16 +9,18 @@ import { editNoteForm } from '../../publicData'
 const EditNote = () => {
     const { noteId } = useNote()
     const { hideModal } = useModal()
-    const [textarea, setTextarea] = useState("")
+    const [titleNote, setTitleNote] = useState("")
+    const [textNote, setTextNote] = useState("")
     const [colorInput, setColorInput] = useState("red-color")
     const [loading, setLoading] = useState(null)
     useEffect(()=>{
         if(noteId){
             setLoading("content-load")
             onAuthStateChanged(Auth, user => {
-                getDoc(doc(Firestore,"users", user.uid, "data", noteId)).then((res)=>{
+                getDoc(doc(Firestore,"users", user.uid, "notes", noteId)).then((res)=>{
                    const result = res.data()
-                   setTextarea(result.data)
+                   setTitleNote(result.title)
+                   setTextNote(result.text)
                    setColorInput(result.colorInput)
                    setLoading(false)
                }).catch((error)=> console.log(error))
@@ -30,10 +32,12 @@ const EditNote = () => {
         e.preventDefault()
         setLoading("edit-submit")
         onAuthStateChanged(Auth, user => {
-            const updateQuery = doc(Firestore ,"users", user.uid, "data", noteId)
+            const updateQuery = doc(Firestore ,"users", user.uid, "notes", noteId)
             updateDoc(updateQuery, {
+                title: titleNote,
+                text: textNote,
                 colorInput: colorInput,
-                data: textarea
+                updatedAt: serverTimestamp(),
             }).then(()=> {
                 console.log("edited")
                 hideModal()
@@ -45,7 +49,7 @@ const EditNote = () => {
     }
     const deleteHandler = () =>{
         setLoading("delete-submit")
-        deleteDoc(doc(Firestore, "users" ,Auth.currentUser.uid, "data", noteId)).then(()=>{
+        deleteDoc(doc(Firestore, "users" ,Auth.currentUser.uid, "notes", noteId)).then(()=>{
             hideModal()
         }).catch((error)=> console.log(error))
     }
@@ -76,7 +80,7 @@ const EditNote = () => {
     let res = null
     if(loading === "content-load") {
         res = (
-            <div className='flex justify-center items-center h-96 w-80 bg-white p-5 rounded-md'>
+            <div className='flex justify-center items-center w-full h-96 sm:w-80 bg-white p-5 rounded-md'>
                 <div className='w-8 h-8 rounded-full border-4 border-slate-100 border-solid border-t-slate-300  animate-spin'></div>
             </div>
         )
@@ -88,11 +92,18 @@ const EditNote = () => {
             </h3>
             <form onSubmit={submitHandler} className='flex flex-col justify-between flex-grow'>
                 <Input 
+                    elementType={editNoteForm.titleNote.elementType}
+                    elementConfig={editNoteForm.titleNote.elementConfig}
+                    value={titleNote}
+                    onChange={(e) => setTitleNote(e.target.value)}
+                    className=" border-2 border-blue-400 mb-2 p-1 rounded-md focus:outline-none"
+                />
+                <Input 
                     elementType={editNoteForm.textNote.elementType}
                     elementConfig={editNoteForm.textNote.elementConfig}
-                    className="resize-none border-2 border-blue-400 mb-2 rounded-md focus:outline-none flex-grow"
-                    defaultValue={textarea}
-                    onChange={(e) => setTextarea(e.target.value)}
+                    className="resize-none border-2 border-blue-400 mb-2 p-1 rounded-md focus:outline-none flex-grow"
+                    defaultValue={textNote}
+                    onChange={(e) => setTextNote(e.target.value)}
                 />
                 <div className='flex justify-evenly mb-2'>
                     {editNoteForm.colorNote.map((item) => {
