@@ -2,6 +2,7 @@ import React from 'react'
 import { useModal } from '../../context/modalContext'
 import AddNote from '../ModalContent/AddNote'
 import EditNote from '../ModalContent/EditNote'
+import EditProfile from '../ModalContent/EditProfile'
 const Modal = () => {
     const { modal, hideModal } = useModal()
     let contentModal = null
@@ -12,6 +13,9 @@ const Modal = () => {
             break
         case "edit-note-content":
             contentModal = <EditNote />
+            break
+        case "edit-profile-content":
+            contentModal = <EditProfile/>
             break
     }
 

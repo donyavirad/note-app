@@ -4,10 +4,15 @@ import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { FaRegUserCircle } from "react-icons/fa";
 import { headerData } from '../../publicData';
+import { useModal } from '../../context/modalContext';
 const Profile = () => {
     const [showMenu, setShowMenu] = useState(false)
     const navigate = useNavigate()
-
+    const {showModal} = useModal()
+    const editProfileHandler = () => {
+        showModal("edit-profile-content")
+        setShowMenu(false)
+    }
     const LogoutHandler = () => {
         signOut(Auth).then(()=>{
             navigate("/login")
@@ -15,7 +20,12 @@ const Profile = () => {
     }
   return (
     <div className='relative'>
-        <FaRegUserCircle onClick={() => setShowMenu(true)} className='w-8 h-8 text-gray-400 cursor-pointer'/>
+        {Auth.currentUser.photoURL ? <img
+            src={Auth.currentUser.photoURL}
+            className="w-8 h-8 object-cover rounded-md"
+            onClick={() => setShowMenu(true)}
+        /> :  <FaRegUserCircle onClick={() => setShowMenu(true)} className='w-8 h-8 text-gray-400 cursor-pointer'/>}
+        
         {showMenu ?
             <div onClick={() => setShowMenu(false)} className='fixed w-full h-full right-0 top-0 z-10'></div>
         : null }
@@ -30,7 +40,7 @@ const Profile = () => {
                         {Auth.currentUser.email}
                     </span>
                 </li>
-                <li className=' px-2 py-1 cursor-pointer transition hover:bg-white hover:bg-opacity-70 '>
+                <li onClick={editProfileHandler} className=' px-2 py-1 cursor-pointer transition hover:bg-white hover:bg-opacity-70 '>
                     {headerData.profile.profileOptions.editProfile.text}
                 </li>
                 <li onClick={LogoutHandler} className={"px-2 py-1 transition hover:bg-white hover:bg-opacity-70  cursor-pointer"}>
