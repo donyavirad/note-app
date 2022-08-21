@@ -77,63 +77,59 @@ const EditNote = () => {
         return resColor
     }
 
-    let res = null
-    if(loading === "content-load") {
-        res = (
-            <div className='flex justify-center items-center w-full h-96 sm:w-80 bg-white p-5 rounded-md'>
+    return(<div className=' w-full h-96 sm:w-80 bg-white p-5 rounded-md animate-newNote'>
+            {loading === "content-load" ? 
+            <div className='h-full flex items-center justify-center'>
                 <div className='w-8 h-8 rounded-full border-4 border-slate-100 border-solid border-t-slate-300  animate-spin'></div>
             </div>
-        )
-    }else{
-        res =
-        (<div className='flex flex-col justify-between w-full h-96 sm:w-80 bg-white p-5 rounded-md'>
-            <h3 className='mb-4'>
-                {editNoteForm.titleForm.text}
-            </h3>
-            <form onSubmit={submitHandler} className='flex flex-col justify-between flex-grow'>
-                <Input 
-                    elementType={editNoteForm.titleNote.elementType}
-                    elementConfig={editNoteForm.titleNote.elementConfig}
-                    value={titleNote}
-                    onChange={(e) => setTitleNote(e.target.value)}
-                    className=" border-2 border-blue-400 mb-2 p-1 rounded-md focus:outline-none"
-                />
-                <Input 
-                    elementType={editNoteForm.textNote.elementType}
-                    elementConfig={editNoteForm.textNote.elementConfig}
-                    className="resize-none border-2 border-blue-400 mb-2 p-1 rounded-md focus:outline-none flex-grow"
-                    defaultValue={textNote}
-                    onChange={(e) => setTextNote(e.target.value)}
-                />
-                <div className='flex justify-evenly mb-2'>
-                    {editNoteForm.colorNote.map((item) => {
-                        return (
-                            <div className='w-8 h-8' key={item.elementConfig.id}>
-                                <Input 
-                                    elementConfig={item.elementConfig}
-                                    className='peer hidden'  
-                                    onChange={changeHandler} 
-                                    value={item.value}
-                                    defaultChecked={colorInput === item.value}/>
-                                <label htmlFor={item.elementConfig.id} className={`block w-8 h-8 rounded cursor-pointer ${colorInputHandler(item.value)}  peer-checked:ring-slate-600 peer-checked:ring-4`}></label>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div className='flex justify-between space-x-4'>
-                    <button type="button" onClick={deleteHandler} className={`w-full px-4 py-1 border border-red-400 rounded-md transition duration-300 hover:border-transparent hover:bg-red-600 hover:text-white ${loading === "delete-submit" ? "disabled:bg-red-300 disabled:text-white cursor-not-allowed" : null}`} disabled={loading}>
-                        {editNoteForm.deleteButton.text}
-                    </button>
-                    <button type="submit" className={`w-full px-4 py-1 border border-blue-400 rounded-md transition duration-300 hover:border-transparent hover:bg-blue-600 hover:text-white ${loading === "edit-submit" ? "disabled:bg-blue-300 disabled:text-white cursor-not-allowed" : null} `} disabled={loading}>
-                        {editNoteForm.editButton.text}
-                    </button>
-                </div>
-            </form>
+            : 
+            <div className='flex flex-col justify-between h-full'>
+                <h3 className='mb-4'>
+                    {editNoteForm.titleForm.text}
+                </h3>
+                <form onSubmit={submitHandler} className='flex flex-col justify-between flex-grow'>
+                    <Input 
+                        elementType={editNoteForm.titleNote.elementType}
+                        elementConfig={editNoteForm.titleNote.elementConfig}
+                        value={titleNote}
+                        onChange={(e) => setTitleNote(e.target.value)}
+                        className=" border-2 border-blue-400 mb-2 p-1 rounded-md focus:outline-none"
+                    />
+                    <Input 
+                        elementType={editNoteForm.textNote.elementType}
+                        elementConfig={editNoteForm.textNote.elementConfig}
+                        className="resize-none border-2 border-blue-400 mb-2 p-1 rounded-md focus:outline-none flex-grow"
+                        defaultValue={textNote}
+                        onChange={(e) => setTextNote(e.target.value)}
+                    />
+                    <div className='flex justify-evenly mb-2'>
+                        {editNoteForm.colorNote.map((item) => {
+                            return (
+                                <div className='w-8 h-8' key={item.elementConfig.id}>
+                                    <Input 
+                                        elementConfig={item.elementConfig}
+                                        className='peer hidden'  
+                                        onChange={changeHandler} 
+                                        value={item.value}
+                                        defaultChecked={colorInput === item.value}/>
+                                    <label htmlFor={item.elementConfig.id} className={`block w-8 h-8 rounded cursor-pointer ${colorInputHandler(item.value)}  peer-checked:ring-slate-600 peer-checked:ring-4`}></label>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className='flex justify-between space-x-4'>
+                        <button type="button" onClick={deleteHandler} className={`w-full px-4 py-1 border border-red-400 rounded-md transition duration-300 hover:border-transparent hover:bg-red-600 hover:text-white ${loading === "delete-submit" ? "disabled:bg-red-300 disabled:text-white cursor-not-allowed" : null}`} disabled={loading}>
+                            {editNoteForm.deleteButton.text}
+                        </button>
+                        <button type="submit" className={`w-full px-4 py-1 border border-blue-400 rounded-md transition duration-300 hover:border-transparent hover:bg-blue-600 hover:text-white ${loading === "edit-submit" ? "disabled:bg-blue-300 disabled:text-white cursor-not-allowed" : null} `} disabled={loading}>
+                            {editNoteForm.editButton.text}
+                        </button>
+                    </div>
+                </form>
+            </div>
+            }
         </div>)
-    }
     
-  return res
-
 }
 
 export default EditNote

@@ -46,7 +46,7 @@ const NoteItem = (props) => {
         return (`${hour}:${minutes} ${numberDay} ${monthNames[monthIndex]}`)
     }
   return (
-    <div className={` group p-4 h-40 md:h-52 ${color} rounded-md shadow-md transition duration-500 hover:scale-105 animate-newNote`} >
+    <div className={` group p-4 h-40 md:h-52 ${color} rounded-md shadow-md animate-newNote`} >
         <div className='relative flex flex-col h-full'>
             <div className='flex flex-col h-full overflow-hidden'>
                 <h4 className='text-slate-600 line-clamp-1 text-lg font-bold'>

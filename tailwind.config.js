@@ -9,26 +9,26 @@ module.exports = {
             newNote: {
                 "0%": {
                     opacity: "0%",
-                    scale: ".8",
+                    transform: "scale(.8)",
                 },
                 "100%": {
                     opacity: "100%",
-                    scale: "1"
+                    transform: "scale(1)",
                 }
             },
             editNote: {
                 "0%": {
                     visibility: "hidden",
-                    scale: "0",
+                    transform: "scale(0)",
                 },
                 "100%": {
-                    scale: "1",
+                    transform: "scale(1)",
                     visibility: "visible"
                 }
             },
             editNoteEnd: {
                 "100%": {
-                    scale: "0",
+                    transform: "scale(0)",
                     visibility: "hidden"
                 }
             },

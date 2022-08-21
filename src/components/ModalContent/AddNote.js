@@ -54,7 +54,7 @@ const AddNote = () => {
         return resColor
     }
   return (
-        <div className='flex flex-col justify-between w-full  h-96 sm:w-80 bg-white p-5 rounded-md'>
+        <div className='flex flex-col justify-between w-full  h-96 sm:w-80 bg-white p-5 rounded-md animate-newNote'>
             <h3 className='mb-4'>{addNoteForm.titleForm.text}</h3>
             <form onSubmit={submitHandler} className='flex flex-col justify-between flex-grow'>
                 <Input 
